@@ -2,7 +2,6 @@
 
 In Amazon EC2, **Placement Groups** help control how instances (virtual machines) are physically arranged within AWS’s infrastructure. This placement strategy can improve performance, reduce latency, and increase reliability, depending on the needs of your application. AWS offers three types of placement groups: **Cluster**, **Spread**, and **Partition**. Each has unique benefits and is suitable for different use cases.
 
----
 
 ## Types of Placement Groups
 
@@ -21,8 +20,6 @@ In a **Cluster Placement Group**, instances are placed close together within a s
   - **Big Data Applications**: Jobs that need to process data very quickly.
   - **Low-Latency Applications**: Applications that require extremely fast communication between instances, like certain scientific simulations.
 
----
-
 ### 2. **Spread Placement Group**
 
 In a **Spread Placement Group**, instances are distributed across different physical hardware racks and can be placed across multiple Availability Zones. This ensures that each instance is isolated from hardware failures that might affect other instances in the group.
@@ -38,8 +35,6 @@ In a **Spread Placement Group**, instances are distributed across different phys
   - **Critical Applications**: Applications where each instance must be isolated from others to prevent simultaneous failure.
   - **High-Availability Apps**: Apps that must stay operational, even if part of the underlying hardware fails.
 
----
-
 ### 3. **Partition Placement Group**
 
 In a **Partition Placement Group**, instances are divided into multiple "partitions" within an AZ. Each partition is on a separate rack with isolated power and networking, which helps limit the impact of a hardware failure to only the affected partition. Partition groups can span multiple AZs and support hundreds of instances.
@@ -50,8 +45,6 @@ In a **Partition Placement Group**, instances are divided into multiple "partiti
 
 - **Best Use Cases**:
   - **Large Distributed Applications**: Ideal for systems like Hadoop, Cassandra, and Kafka that work well when distributed across multiple machines and need fault isolation.
-
----
 
 ## Summary Table
 
