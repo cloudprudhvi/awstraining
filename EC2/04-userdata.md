@@ -8,6 +8,13 @@ You can provide a UserData script when launching an EC2 instance. This script ca
 
 ## Location of UserData Logs
 To track the execution of your UserData script or diagnose issues, you can access the logs generated during the script execution. UserData logs are stored in the following location on the instance:
+```bash
+#userdata
+#!/bin/bash
+yum update -y
+yum install nginx
+systemctl start nginx
+```
 
 ```bash
 /var/log/cloud-init-output.log
