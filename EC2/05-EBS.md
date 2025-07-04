@@ -55,3 +55,61 @@ EBS volumes are available in several types, each tailored to specific use cases:
 
 - Provision, attach, detach, and delete EBS volumes via the AWS Management Console, CLI, or SDKs.
 - Modify volume types, adjust performance, or increase volume size on-the-fly as your needs evolve.
+
+## Using EBS Volumes with Linux Instances
+
+### Steps to Attach and Use an EBS Volume on Linux
+
+1. **Attach the EBS Volume:**
+   - Use the AWS Management Console or CLI to attach the EBS volume to your running EC2 instance.
+   - CLI example:
+     ```bash
+     aws ec2 attach-volume --volume-id vol-xxxxxxxx --instance-id i-xxxxxxxx --device /dev/xvdf
+     ```
+   - This command attaches the specified EBS volume to your instance at the given device path.
+
+2. **Connect to Your Instance:**
+   - SSH into your EC2 Linux instance.
+
+3. **Check for the New Volume:**
+   - Run:
+     ```bash
+     lsblk
+     ```
+   - This lists all block devices, helping you verify the new volume is attached (e.g., `/dev/xvdf`).
+
+4. **Create a File System (if new volume):**
+   - If the volume is new, format it (e.g., as ext4):
+     ```bash
+     sudo mkfs -t ext4 /dev/xvdf
+     ```
+   - This prepares the volume for use by creating a file system.
+
+5. **Mount the Volume:**
+   - Create a mount point and mount the volume:
+     ```bash
+     sudo mkdir /data
+     sudo mount /dev/xvdf /data
+     ```
+   - Now, the volume is accessible at `/data`.
+
+...existing code...
+
+6. **Make the Mount Persistent:**
+   - Add an entry to `/etc/fstab` to mount the volume automatically after reboot:
+     ```bash
+     echo '/dev/xvdf /data ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+     ```
+   - Alternatively, you can manually edit `/etc/fstab` using a text editor like `vim`:
+     ```bash
+     sudo vim /etc/fstab
+     ```
+   - If `vim` is not installed, you can install it using:
+     ```bash
+     sudo yum install vim -y
+     ```
+   - Using a UUID from `sudo blkid` is recommended for reliability. Example entry:
+     ```
+     UUID=aebf131c-6957-451e-8d34-ec978d9581ae /data ext4 defaults,nofail 0 2
+     ```
+
